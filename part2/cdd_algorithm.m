@@ -2,8 +2,6 @@ function lambdas = cdd_algorithm(rho, epsilon, l_max)
     x_0 = 0 : 0.01 : 1;
     d_rho = diff(rho, "z"); % checked
     
-    
-    
     prob = optimproblem('ObjectiveSense','max'); % checked
     l = optimvar('lambda', l_max, 'LowerBound', 0); % checked
     prob.Objective = sum(l ./ (1:l_max)'); % checked
