@@ -13,7 +13,9 @@ function c_hat = bp_decode(H, Y, iter)
     % Initialize L(c), L(q)
     c = init_c(Y); 
     q = init_q(c, H);
-    
+
+    % 
+    c_hat_old = [];
     for i=1:iter
         % Update L(r)
         r = update_r(q, H);
@@ -26,6 +28,12 @@ function c_hat = bp_decode(H, Y, iter)
         
         if ~any(mod(c_hat*H', 2))
             break
+        elseif ~isempty(c_hat_old)
+            if all(c_hat_old == c_hat)
+                break   
+            end
         end
+
+        c_hat_old = c_hat;
     end
 end

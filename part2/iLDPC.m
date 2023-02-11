@@ -1,12 +1,12 @@
 function [act_n, k, L, R] = iLDPC(epsilon, desired_n, r_avg_max, l_max)
-    n = round(desired_n/2);
+    n = round(desired_n/10);
 
     [r_avg, lambda] = design_iLDPC(epsilon, r_avg_max, l_max);
     rho = zeros(r_avg, 1);
     rho(r_avg - 1) = 1;
 
     n_acc = [];
-    while (n < 2*desired_n)
+    while (n < 10*desired_n)
         L = round((n * lambda ./ (1:l_max)') / sum(lambda ./ (1:l_max)'));
         R = round((n * rho ./ (1:r_avg)') / sum(lambda ./ (1:l_max)'));
 

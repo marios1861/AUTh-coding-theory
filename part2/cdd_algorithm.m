@@ -17,7 +17,8 @@ function lambdas = cdd_algorithm(rho, epsilon, l_max)
     prob.Constraints.cons4 = l(2) <= 1 / (epsilon * double(d_rho(1))); 
     
     
-    
-    sol = solve(prob);
+    opts = optimoptions(@linprog,'Display','off');
+    sol = solve(prob, 'Options', opts);
+
     lambdas = sol.lambda;
 end
