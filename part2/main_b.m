@@ -2,7 +2,7 @@ clc;
 clear;
 addpath(genpath("./BP"));
 epsilons = 0.05:0.05:0.5;
-desired_n = 1000;
+desired_n = 250;
 glob_iter = 2000;
 pct_errs = epsilons;
 m = 1;
@@ -17,15 +17,10 @@ for epsilon = epsilons
     r = find(R);
     
     L = zeros(1, length(L));
-    if(mod(r*R(r), floor(l_avg)) == 0)
-        l_avg = ceil(l_avg);
-        L(l_avg) = r*R(r) / l_avg;
-    elseif(mod(r*R(r), ceil(l_avg)) == 0)
-        l_avg = ceil(l_avg);
-        L(l_avg) = r*R(r) / l_avg;
-    else
-        warning("THINK AGAIN HAHAHHHHAAHAHA");
-    end
+    candidates = divisors(r*R(r));
+    [~, closest] = min(abs(l_avg-candidates));
+    L(candidates(closest)) = r*R(r) / candidates(closest);
+
     n = sum(L);
     val = sum(R);
     k = n - val;
@@ -92,7 +87,7 @@ for epsilon = epsilons
     msg = zeros(n, 1)';
     
     stat_iter = glob_iter/length(epsilons);
-    pct_err = zeros(stat_iter, 1);)
+    pct_err = zeros(stat_iter, 1);
     
     parfor i = 1:stat_iter
         c_data = BEC(epsilon, msg);

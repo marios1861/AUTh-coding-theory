@@ -2,7 +2,7 @@ clc;
 clear;
 addpath(genpath("./BP"));
 epsilons = 0.05:0.05:0.5;
-desired_n = 1000;
+desired_n = 250;
 glob_iter = 2000;
 pct_errs = epsilons;
 m = 1;
