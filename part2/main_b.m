@@ -13,9 +13,25 @@ for epsilon = epsilons
     if(n-k<l_max)
         continue
     end
+    l_avg = L'*(1:length(L))' / sum(L);
+    r = find(R);
+    
+    L = zeros(1, length(L));
+    if(mod(r*R(r), floor(l_avg)) == 0)
+        l_avg = ceil(l_avg);
+        L(l_avg) = r*R(r) / l_avg;
+    elseif(mod(r*R(r), ceil(l_avg)) == 0)
+        l_avg = ceil(l_avg);
+        L(l_avg) = r*R(r) / l_avg;
+    else
+        warning("THINK AGAIN HAHAHHHHAAHAHA");
+    end
+    n = sum(L);
+    val = sum(R);
+    k = n - val;
     H = zeros(n-k, n);
     n_i = 1; 
-    r = find(R);
+    
     burnt_rows = [];
     burnt_cols = [];
     for i = 1:length(L)
@@ -76,7 +92,7 @@ for epsilon = epsilons
     msg = zeros(n, 1)';
     
     stat_iter = glob_iter/length(epsilons);
-    pct_err = zeros(stat_iter, 1);
+    pct_err = zeros(stat_iter, 1);)
     
     parfor i = 1:stat_iter
         c_data = BEC(epsilon, msg);
@@ -90,4 +106,4 @@ end
 
 plot(epsilons, pct_errs);
 xlabel('Channel erasure rate'); ylabel('Bit error rate');
-title(sprintf('iLDPC BER on BEC (n = %d)', desired_n));
+title(sprintf('Regular LDPC BER on BEC (n = %d)', desired_n));

@@ -2,14 +2,15 @@ clc;
 clear;
 addpath(genpath("./BP"));
 epsilons = 0.05:0.05:0.5;
-desired_n = 1000;
+dif_eps = 0.1;
+desired_n = 500;
 glob_iter = 2000;
 pct_errs = epsilons;
 m = 1;
 for epsilon = epsilons
     l_max = 5;
     r_avg_max = 100;
-    [n, k, L, R] = iLDPC(epsilon, desired_n, r_avg_max, l_max);
+    [n, k, L, R] = iLDPC(epsilon + dif_eps/2, desired_n, r_avg_max, l_max);
     if(n-k<l_max)
         continue
     end
@@ -79,10 +80,13 @@ for epsilon = epsilons
     pct_err = zeros(stat_iter, 1);
     
     parfor i = 1:stat_iter
-        c_data = BEC(epsilon, msg);
-        dec_data = bp_decode(H, c_data, 100);
-        [~, pcterr_i] = biterr(msg, dec_data);
-        pct_err(i) = pcterr_i;
+        c_data1 = BEC(epsilon, msg);
+        c_data2 = BEC(epsilon + dif_eps, msg);
+        dec_data1 = bp_decode(H, c_data1, 100);
+        dec_data2 = bp_decode(H, c_data2, 100);
+        [~, pcterr_i1] = biterr(msg, dec_data1);
+        [~, pcterr_i2] = biterr(msg, dec_data2);
+        pct_err(i) = mean([pcterr_i1, pcterr_i2]);
     end
     pct_errs(m) = mean(pct_err);
     m = m + 1;
@@ -90,4 +94,4 @@ end
 
 plot(epsilons, pct_errs);
 xlabel('Channel erasure rate'); ylabel('Bit error rate');
-title(sprintf('iLDPC BER on BEC (n = %d)', desired_n));
+title(sprintf('iLDPC BER on 2 BEC channels (Δe = %f) (n = %d)', dif_eps, desired_n));
