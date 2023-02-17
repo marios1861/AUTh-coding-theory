@@ -16,7 +16,12 @@ function [act_n, k, L, R] = iLDPC(epsilon, desired_n, r_avg_max, l_max)
 
         n = n + 1;
     end
-
+    % find valid n vals
+    sum_R = zeros(length(n_acc), 1);
+    for i = 1:length(n_acc)
+        sum_R(i) = sum(round((n_acc(i) * rho ./ (1:r_avg)') / sum(lambda ./ (1:l_max)')));
+    end
+    n_acc(sum_R < l_max) = inf;
     [~,closest] = min(abs(desired_n-n_acc));
 
     act_n = n_acc(closest);
