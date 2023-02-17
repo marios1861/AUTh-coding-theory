@@ -3,7 +3,7 @@
 #SBATCH -p batch
 #SBATCH --ntasks-per-node=20
 #SBATCH --nodes=1
-#SBATCH -t 15:00
+#SBATCH -t 1:00:00
 
 #### load module ####
 module load matlab/R2022b
