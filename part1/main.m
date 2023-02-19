@@ -1,7 +1,6 @@
-clear all %#ok<CLALL>
+clear
 close all
 clc
-
 
 golay_matrix = [
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -32,7 +31,7 @@ run = 1;
 parity_check_matrix_t = get_H_T(golay_matrix);
 
 gen_mat = get_generator(golay_matrix);
-syndrome_table = syndrome_decoding_init(parity_check_matrix_t);
+syndrome_table = syndrome_decoding_init_golay(parity_check_matrix_t);
 
 fileID = fopen("data.txt", 'r');
 str = fscanf(fileID, '%c');
@@ -78,7 +77,7 @@ end
 run = 1;
 parity_check_matrix_t = get_H_T(cyclic_matrix);
 gen_mat = get_generator(cyclic_matrix);
-syndrome_table = syndrome_decoding_init(parity_check_matrix_t);
+syndrome_table = syndrome_decoding_init_1(parity_check_matrix_t);
 
 fileID = fopen("data.txt", 'r');
 str = fscanf(fileID, '%c');

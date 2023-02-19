@@ -1,7 +1,6 @@
 function syndrome_table = syndrome_decoding_init_1(H_t)
-num_syndromes = size(H_t, 1);
-syndromes = zeros(num_syndromes, size(H_t, 2));
-errors = zeros(num_syndromes, size(H_t, 1));
+syndromes = zeros(size(H_t));
+errors = zeros(size(H_t, 1), size(H_t, 1));
 l = 1;
 for i = 1 : size(H_t, 1)
     err = zeros(size(H_t, 1), 1)';

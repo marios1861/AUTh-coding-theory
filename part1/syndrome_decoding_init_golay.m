@@ -1,4 +1,4 @@
-function syndrome_table = syndrome_decoding_init(H_t)
+function syndrome_table = syndrome_decoding_init_golay(H_t)
 num_syndromes = size(H_t, 1)^3;
 syndromes = zeros(num_syndromes, size(H_t, 2));
 errors = zeros(num_syndromes, size(H_t, 1));
