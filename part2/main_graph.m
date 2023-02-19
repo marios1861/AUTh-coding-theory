@@ -2,13 +2,13 @@ clc;
 clear;
 addpath(genpath("./BP"));
 epsilons = 0.05:0.05:0.5;
-desired_ns = [100, 250, 500, 1000];
+desired_ns = [250, 500, 1000];
 glob_iter = 1000;
 pct_errs = epsilons;
 for desired_n = desired_ns
     m = 1;
     for epsilon = epsilons
-        l_max = 10;
+        l_max = 5;
         r_avg_max = 100;
         [n, k, L, R] = iLDPC(epsilon, desired_n, r_avg_max, l_max);
         H = zeros(n-k, n);
