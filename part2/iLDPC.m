@@ -10,7 +10,7 @@ function [act_n, k, L, R] = iLDPC(epsilon, desired_n, r_avg_max, l_max)
         L = round((n * lambda ./ (1:l_max)') / sum(lambda ./ (1:l_max)'));
         R = round((n * rho ./ (1:r_avg)') / sum(lambda ./ (1:l_max)'));
 
-        if(sum((1:length(L))' .* L) == sum((1:length(R))' .* R))
+        if((sum((1:length(L))' .* L) == sum((1:length(R))' .* R)) && (n == sum(L)))
             n_acc = [n_acc; n];
         end
 
@@ -29,4 +29,3 @@ function [act_n, k, L, R] = iLDPC(epsilon, desired_n, r_avg_max, l_max)
     R = round((act_n * rho ./ (1:r_avg)') / sum(lambda ./ (1:l_max)'));
 
     k = act_n - sum(R);
-    r = k/act_n;
