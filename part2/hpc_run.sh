@@ -3,7 +3,7 @@
 #SBATCH -p batch
 #SBATCH --ntasks-per-node=20
 #SBATCH --nodes=1
-#SBATCH -t 2:00:00
+#SBATCH -t 1:00:00
 
 #### load module ####
 module load matlab/R2022b
@@ -11,9 +11,7 @@ module load matlab/R2022b
 #### RUN MATLAB JOB ####
 echo "Starting Matlab"
 matlab -nodisplay << EOF &> matlab1.out
-run("main_graph.m");
-run("main.m");
-run("main_naive.m");
-run("main_b_graph.m");
+run("bonus_main_diff_graph.m");
+run("bonus_main_same_graph.m");
 exit
 EOF
