@@ -1,6 +1,5 @@
 clc;
 clear;
-addpath(genpath("./BP"));
 epsilons = 0.05:0.05:0.5;
 dif_eps = 0.1;
 desired_n = 500;
