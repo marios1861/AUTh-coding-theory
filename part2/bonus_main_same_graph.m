@@ -65,5 +65,5 @@ for dif_eps = dif_epss
     xlabel('Channel erasure rate'); ylabel('Bit error rate');
     title(sprintf('Same MSG (Äe = %f)', dif_eps));
     grid on
-    saveas(gcf, sprintf("./results/%d_bonussame.png", dif_eps*100));
+%     saveas(gcf, sprintf("./results/%d_bonussame.png", dif_eps*100));
 end
